@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { RainbowButton } from "@/components/ui/rainbow-button";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -21,12 +22,10 @@ const Footer = () => {
         <p className="text-base md:text-lg text-card-dark-foreground/60 max-w-xl mx-auto mb-8 md:mb-10 px-4">
           Let's create a website that drives real results for your business
         </p>
-        <Button variant="hero-cta" size="xl" className="group">
+        <RainbowButton size="lg" className="group px-8 py-6 text-base md:text-lg font-semibold">
           Start Your Project
-          <span className="flex items-center justify-center w-6 h-6 md:w-7 md:h-7 bg-card-dark/20 rounded-lg ml-2 group-hover:bg-card-dark/30 transition-colors">
-            <ArrowUpRight className="w-3.5 h-3.5 md:w-4 md:h-4" />
-          </span>
-        </Button>
+          <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 ml-2 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
+        </RainbowButton>
       </motion.div>
 
       {/* Footer Links */}
@@ -34,7 +33,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6">
           {/* Logo */}
           <a href="/" className="font-display text-xl md:text-2xl font-medium">
-            Hamza Digital Studio
+            Hamza's Digital Studio
           </a>
 
           {/* Links */}

@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { RainbowButton } from "@/components/ui/rainbow-button";
 import { ArrowUpRight, Folder, FileText, MessageSquare, CreditCard } from "lucide-react";
 import heroBackground from "@/assets/hero-clouds.jpg";
 import { useRef } from "react";
@@ -94,12 +95,10 @@ const HeroSection = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-8 md:mt-10"
         >
-          <Button variant="hero-cta" size="xl" className="group">
+          <RainbowButton size="lg" className="group px-8 py-6 text-base md:text-lg font-semibold">
             Start Your Project
-            <span className="flex items-center justify-center w-6 h-6 md:w-7 md:h-7 bg-card-dark/20 rounded-lg ml-2 group-hover:bg-card-dark/30 transition-colors">
-              <ArrowUpRight className="w-3.5 h-3.5 md:w-4 md:h-4" />
-            </span>
-          </Button>
+            <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 ml-2 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
+          </RainbowButton>
         </motion.div>
 
         {/* Feature Pills */}
