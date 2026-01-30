@@ -33,12 +33,28 @@ const StepsSection = () => {
               delay={0.1}
               className="font-display text-2xl sm:text-3xl md:text-4xl font-medium text-foreground mb-8 md:mb-12"
             >
-              Get started in{" "}
-              <span className="text-primary">3 simple steps</span>
+              How We Work{" "}
+              <span className="text-primary">Together</span>
             </BlurReveal>
 
             <div className="space-y-6 md:space-y-8">
-              {steps.map((step, i) => (
+              {[
+                {
+                  number: "01",
+                  title: "Discovery Call",
+                  description: "We start with a conversation about your goals, challenges, and vision. This helps us create a custom strategy tailored to your needs."
+                },
+                {
+                  number: "02",
+                  title: "Design & Approval",
+                  description: "Our team creates stunning design mockups for your review. We refine until it's perfect, ensuring you love every detail before development begins."
+                },
+                {
+                  number: "03",
+                  title: "Development & Launch",
+                  description: "We build your site with modern technology, test thoroughly, and launch it to the world. Plus, we provide training so you can manage it with confidence."
+                },
+              ].map((step, i) => (
                 <motion.div
                   key={step.number}
                   initial={{ opacity: 0, x: -20 }}

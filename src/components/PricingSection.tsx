@@ -8,57 +8,61 @@ import { Typewriter } from "@/components/ui/typewriter";
 const pricingPlans = [
   {
     name: "Starter",
-    description: "Perfect for freelancers just getting started",
-    price: { monthly: 19, yearly: 15 },
+    tagline: "Perfect for small businesses",
+    price: "2,500",
+    description: "Get a professional single-page website that makes a strong first impression",
     features: [
-      "Up to 5 active clients",
-      "10GB file storage",
-      "Basic client portal",
-      "Email notifications",
-      "Mobile app access",
-      "Community support",
+      "Single landing page design",
+      "Fully responsive (mobile-friendly)",
+      "Basic SEO optimization",
+      "Contact form integration",
+      "2 rounds of revisions",
+      "1 month complimentary support",
     ],
-    cta: "Start free trial",
+    cta: "Get Started",
     popular: false,
   },
   {
     name: "Professional",
-    description: "For growing freelancers and small teams",
-    price: { monthly: 49, yearly: 39 },
+    tagline: "Most popular for growing businesses",
+    price: "5,500",
+    description: "A complete multi-page website with custom design and CMS integration",
     features: [
-      "Unlimited clients",
-      "100GB file storage",
-      "Custom branding",
-      "Advanced analytics",
-      "Priority notifications",
-      "Invoice integration",
-      "Priority support",
-      "API access",
+      "Up to 7 custom pages",
+      "Custom UI/UX design",
+      "CMS integration (WordPress/Webflow)",
+      "Advanced SEO optimization",
+      "Google Analytics setup",
+      "3 rounds of revisions",
+      "2 months complimentary support",
+      "Blog functionality",
     ],
-    cta: "Start free trial",
+    cta: "Start Your Project",
     popular: true,
   },
   {
-    name: "Agency",
-    description: "For agencies and larger teams",
-    price: { monthly: 99, yearly: 79 },
+    name: "Enterprise",
+    tagline: "For complex projects",
+    price: "12,000+",
+    description: "Full-scale e-commerce or custom web applications with ongoing support",
     features: [
-      "Everything in Professional",
-      "Unlimited storage",
-      "Team collaboration",
-      "White-label portal",
-      "Advanced permissions",
-      "Dedicated account manager",
-      "Custom integrations",
-      "SLA guarantee",
+      "Unlimited pages",
+      "Custom functionality & features",
+      "E-commerce integration",
+      "API & third-party integrations",
+      "Advanced animations & interactions",
+      "Priority support & maintenance",
+      "Unlimited revisions",
+      "3 months complimentary support",
+      "Training & documentation",
     ],
-    cta: "Contact sales",
+    cta: "Contact Us",
     popular: false,
   },
 ];
 
 const PricingSection = () => {
-  const [isYearly, setIsYearly] = useState(false);
+
 
   return (
     <section id="pricing" className="py-16 md:py-24 lg:py-32 bg-card-dark overflow-hidden">
@@ -81,48 +85,19 @@ const PricingSection = () => {
             delay={0.1}
             className="font-display text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium text-card-dark-foreground max-w-3xl mx-auto leading-tight px-4"
           >
-            Simple pricing for{" "}
+            Simple Pricing for{" "}
             <br className="hidden md:block" />
-            every stage of growth
+            Every Project
           </BlurReveal>
 
           <Typewriter
-            text="Start free for 14 days. No credit card required."
+            text="Transparent project-based pricing. No hidden fees, no recurring charges. Just quality work at fair prices"
             delay={0.3}
             speed={25}
             className="mt-6 text-base md:text-lg text-card-dark-foreground/60 max-w-xl mx-auto px-4"
           />
 
-          {/* Billing Toggle */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-8 inline-flex items-center gap-3 bg-card-dark-foreground/10 rounded-full p-1"
-          >
-            <button
-              onClick={() => setIsYearly(false)}
-              className={`px-4 md:px-6 py-2 rounded-full text-sm font-medium transition-all ${!isYearly
-                ? 'bg-primary text-primary-foreground'
-                : 'text-card-dark-foreground/60 hover:text-card-dark-foreground'
-                }`}
-            >
-              Monthly
-            </button>
-            <button
-              onClick={() => setIsYearly(true)}
-              className={`px-4 md:px-6 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-2 ${isYearly
-                ? 'bg-primary text-primary-foreground'
-                : 'text-card-dark-foreground/60 hover:text-card-dark-foreground'
-                }`}
-            >
-              Yearly
-              <span className="bg-success text-success-foreground text-xs px-2 py-0.5 rounded-full">
-                Save 20%
-              </span>
-            </button>
-          </motion.div>
+
         </div>
 
         {/* Pricing Cards */}
@@ -132,11 +107,12 @@ const PricingSection = () => {
               key={plan.name}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -8, scale: 1.02 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 * index }}
-              className={`relative rounded-3xl p-6 md:p-8 ${plan.popular
-                ? 'bg-primary text-primary-foreground ring-2 ring-primary ring-offset-4 ring-offset-card-dark'
-                : 'bg-card text-foreground'
+              className={`relative rounded-3xl p-6 md:p-8 cursor-pointer ${plan.popular
+                ? 'bg-primary text-primary-foreground ring-2 ring-primary ring-offset-4 ring-offset-card-dark shadow-xl'
+                : 'bg-card text-foreground shadow-lg hover:shadow-2xl'
                 }`}
             >
               {/* Popular Badge */}
@@ -147,28 +123,22 @@ const PricingSection = () => {
               )}
 
               {/* Plan Header */}
-              <div className="mb-6">
-                <h3 className="font-display text-xl md:text-2xl font-medium mb-2">{plan.name}</h3>
-                <p className={`text-sm ${plan.popular ? 'text-primary-foreground/80' : 'text-muted-foreground'}`}>
-                  {plan.description}
+              <div className="text-left mb-6 md:mb-8">
+                <h3 className={`font-display text-2xl md:text-3xl font-medium mb-2 ${plan.popular ? 'text-card-dark-foreground' : 'text-foreground'}`}>
+                  {plan.name}
+                </h3>
+                <p className={`text-sm md:text-base mb-4 md:mb-6 ${plan.popular ? 'text-card-dark-foreground/60' : 'text-muted-foreground'}`}>
+                  {plan.tagline}
                 </p>
-              </div>
-
-              {/* Price */}
-              <div className="mb-6 md:mb-8">
-                <div className="flex items-baseline gap-1">
-                  <span className="font-display text-4xl md:text-5xl font-medium">
-                    ${isYearly ? plan.price.yearly : plan.price.monthly}
-                  </span>
-                  <span className={plan.popular ? 'text-primary-foreground/60' : 'text-muted-foreground'}>
-                    /month
+                <div className="flex items-baseline gap-2">
+                  <span className={`text-sm ${plan.popular ? 'text-card-dark-foreground/60' : 'text-muted-foreground'}`}>from</span>
+                  <span className={`font-display text-4xl md:text-5xl font-medium ${plan.popular ? 'text-card-dark-foreground' : 'text-foreground'}`}>
+                    ${plan.price}
                   </span>
                 </div>
-                {isYearly && (
-                  <p className={`text-sm mt-1 ${plan.popular ? 'text-primary-foreground/60' : 'text-muted-foreground'}`}>
-                    Billed annually
-                  </p>
-                )}
+                <p className={`text-xs md:text-sm mt-2 ${plan.popular ? 'text-card-dark-foreground/50' : 'text-muted-foreground'}`}>
+                  {plan.description}
+                </p>
               </div>
 
               {/* CTA Button */}

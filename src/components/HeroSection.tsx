@@ -5,14 +5,16 @@ import heroBackground from "@/assets/hero-clouds.jpg";
 import { useRef } from "react";
 import { BlurReveal } from "@/components/ui/blur-reveal";
 import { Typewriter } from "@/components/ui/typewriter";
+import { useTheme } from "@/contexts/ThemeContext";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
-const partnerLogos = [
-  { name: "PayPal", svg: "PayPal" },
-  { name: "Fiverr", svg: "fiverr." },
-  { name: "Freelancer", svg: "freelancer" },
-  { name: "LinkedIn", svg: "Linked" },
-  { name: "Stripe", svg: "stripe" },
-  { name: "Upwork", svg: "Upwork" },
+const techStack = [
+  { name: "React", svg: "React" },
+  { name: "Next.js", svg: "Next.js" },
+  { name: "Tailwind", svg: "Tailwind" },
+  { name: "WordPress", svg: "WordPress" },
+  { name: "Webflow", svg: "Webflow" },
+  { name: "Shopify", svg: "Shopify" },
 ];
 
 const HeroSection = () => {
@@ -31,14 +33,23 @@ const HeroSection = () => {
     <section ref={sectionRef} className="relative min-h-screen flex flex-col pt-20 overflow-hidden">
       {/* Parallax Background */}
       <motion.div
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-0 w-full h-full"
         style={{ y: backgroundY, scale: backgroundScale }}
       >
+        {/* Light mode background */}
         <img
           src={heroBackground}
           alt=""
-          className="w-full h-[120%] object-cover object-bottom"
+          className="w-full h-[120%] object-cover object-bottom dark:hidden"
         />
+        {/* Dark mode background with intense blur */}
+        <div className="hidden dark:block absolute inset-0 w-full h-full overflow-hidden">
+          <img
+            src="/dark-mode-hero.png"
+            alt=""
+            className="w-full h-full object-cover object-center blur-2xl scale-110"
+          />
+        </div>
         <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background" />
       </motion.div>
 
@@ -52,12 +63,9 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-6 md:mb-8"
+          className="mb-6 md:mb-8 flex justify-center"
         >
-          <div className="inline-flex items-center bg-card-dark/90 backdrop-blur-sm rounded-full p-1 shadow-lg">
-            <span className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-primary" />
-            <span className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-transparent" />
-          </div>
+          <ThemeToggle />
         </motion.div>
 
         {/* Headline */}
@@ -66,14 +74,14 @@ const HeroSection = () => {
           delay={0.1}
           className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-foreground max-w-4xl leading-tight"
         >
-          One portal for every{" "}
+          Transforming Ideas into{" "}
           <br className="hidden sm:block" />
-          project & client
+          Stunning Digital Experiences
         </BlurReveal>
 
         {/* Subheadline */}
         <Typewriter
-          text="A modern client portal that replaces scattered emails, messy threads, and lost files with one clean, structured space your clients can rely on every day"
+          text="We craft beautiful, high-performing websites that drive results. From custom web design to full-stack development, we bring your vision to life with modern technology and creative excellence"
           delay={0.6}
           speed={20}
           className="mt-4 md:mt-6 text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl px-4"
@@ -87,7 +95,7 @@ const HeroSection = () => {
           className="mt-8 md:mt-10"
         >
           <Button variant="hero-cta" size="xl" className="group">
-            Get early access
+            Start Your Project
             <span className="flex items-center justify-center w-6 h-6 md:w-7 md:h-7 bg-card-dark/20 rounded-lg ml-2 group-hover:bg-card-dark/30 transition-colors">
               <ArrowUpRight className="w-3.5 h-3.5 md:w-4 md:h-4" />
             </span>
@@ -102,10 +110,10 @@ const HeroSection = () => {
           className="mt-8 md:mt-12 flex flex-wrap justify-center gap-3 md:gap-8"
         >
           {[
-            { icon: Folder, label: "Projects" },
-            { icon: FileText, label: "Files" },
-            { icon: MessageSquare, label: "Messages" },
-            { icon: CreditCard, label: "Billing" },
+            { icon: Folder, label: "Web Design" },
+            { icon: FileText, label: "Development" },
+            { icon: MessageSquare, label: "E-commerce" },
+            { icon: CreditCard, label: "SEO" },
           ].map((item) => (
             <div key={item.label} className="flex items-center gap-2 text-muted-foreground">
               <item.icon className="w-4 h-4 text-primary" />
@@ -124,16 +132,12 @@ const HeroSection = () => {
       >
         <div className="section-container">
           <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 lg:gap-16">
-            {partnerLogos.map((logo) => (
+            {techStack.map((tech) => (
               <span
-                key={logo.name}
+                key={tech.name}
                 className="text-sm md:text-lg lg:text-xl font-bold text-muted-foreground/40 hover:text-muted-foreground transition-colors cursor-pointer"
               >
-                {logo.svg === "Linked" ? (
-                  <span>Linked<span className="text-[#0A66C2]/40 hover:text-[#0A66C2]">in</span></span>
-                ) : (
-                  logo.svg
-                )}
+                {tech.svg}
               </span>
             ))}
           </div>

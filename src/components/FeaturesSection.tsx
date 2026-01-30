@@ -25,13 +25,13 @@ const FeaturesSection = () => {
             delay={0.1}
             className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-foreground max-w-3xl mx-auto leading-tight px-4"
           >
-            Powerful features built{" "}
+            Services Tailored{" "}
             <br className="hidden md:block" />
-            for client clarity
+            to Your Success
           </BlurReveal>
 
           <Typewriter
-            text="Simple, structured tools that help your clients understand every part of the project — without asking for updates"
+            text="From custom web design to full-stack development and ongoing support, we provide everything you need to succeed online"
             delay={0.3}
             speed={25}
             className="mt-4 md:mt-6 text-base md:text-lg text-muted-foreground max-w-xl mx-auto px-4"
@@ -89,20 +89,20 @@ const FeaturesSection = () => {
               delay={0.1}
               className="font-display text-2xl sm:text-3xl md:text-4xl font-medium text-foreground mb-3 md:mb-4"
             >
-              Organized{" "}
+              Custom Web{" "}
               <br className="hidden md:block" />
-              client spaces
+              Design
             </BlurReveal>
             <Typewriter
-              text="Branded, structured spaces where clients can follow all their work — with support for multiple active projects in one clean view."
+              text="Brand-aligned websites designed to captivate your audience and drive conversions. Every design is unique, responsive, and optimized for your business goals"
               delay={0.3}
               speed={25}
               className="text-base md:text-lg text-muted-foreground mb-6 md:mb-8"
             />
 
             <div className="border-t border-border pt-4 md:pt-6">
-              <p className="text-sm text-muted-foreground mb-1 md:mb-2">faster first-deliverable handoff</p>
-              <p className="font-display text-4xl sm:text-5xl md:text-6xl font-medium text-primary">2,5×</p>
+              <p className="font-display text-4xl sm:text-5xl md:text-6xl font-medium text-primary">3.2×</p>
+              <p className="text-sm text-muted-foreground mt-1 md:mt-2">higher conversion rates</p>
             </div>
           </div>
         </motion.div>
@@ -111,8 +111,8 @@ const FeaturesSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
           className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center mb-12 md:mb-16 lg:mb-24"
         >
           {/* Text Content */}
@@ -122,20 +122,20 @@ const FeaturesSection = () => {
               delay={0.1}
               className="font-display text-2xl sm:text-3xl md:text-4xl font-medium text-foreground mb-3 md:mb-4"
             >
-              Smart communication{" "}
+              Modern Web{" "}
               <br className="hidden md:block" />
-              & updates
+              Development
             </BlurReveal>
             <Typewriter
-              text="Clients get meaningful updates — not noise. Every change, file, task, and message appears instantly and stays connected to the right context."
+              text="Lightning-fast, SEO-optimized websites built with cutting-edge technology. We specialize in React, Next.js, and popular CMS platforms like WordPress and Shopify"
               delay={0.3}
               speed={25}
               className="text-base md:text-lg text-muted-foreground mb-6 md:mb-8"
             />
 
             <div className="border-t border-border pt-4 md:pt-6">
-              <p className="font-display text-4xl sm:text-5xl md:text-6xl font-medium text-primary">40%</p>
-              <p className="text-sm text-muted-foreground mt-1 md:mt-2">fewer status check-ins</p>
+              <p className="font-display text-4xl sm:text-5xl md:text-6xl font-medium text-primary">50%</p>
+              <p className="text-sm text-muted-foreground mt-1 md:mt-2">faster page load times</p>
             </div>
           </div>
 
@@ -186,8 +186,8 @@ const FeaturesSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
           className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center"
         >
           {/* Dark UI Card */}
@@ -237,20 +237,20 @@ const FeaturesSection = () => {
               delay={0.1}
               className="font-display text-2xl sm:text-3xl md:text-4xl font-medium text-foreground mb-3 md:mb-4"
             >
-              Cash flow &{" "}
+              Ongoing Support{" "}
               <br className="hidden md:block" />
-              payments overview
+              & Maintenance
             </BlurReveal>
             <Typewriter
-              text="Monitor payments, progress, and revenue goals in one clear dashboard — no spreadsheets needed"
+              text="Your website stays secure, up-to-date, and performing at its best with our maintenance packages. From content updates to security monitoring, we've got you covered"
               delay={0.3}
               speed={25}
               className="text-base md:text-lg text-muted-foreground mb-6 md:mb-8"
             />
 
             <div className="border-t border-border pt-4 md:pt-6">
-              <p className="font-display text-4xl sm:text-5xl md:text-6xl font-medium text-primary">30%</p>
-              <p className="text-sm text-muted-foreground mt-1 md:mt-2">faster payment tracking</p>
+              <p className="font-display text-4xl sm:text-5xl md:text-6xl font-medium text-primary">99%</p>
+              <p className="text-sm text-muted-foreground mt-1 md:mt-2">uptime guarantee</p>
             </div>
           </div>
         </motion.div>

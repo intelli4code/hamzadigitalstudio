@@ -25,13 +25,13 @@ const WorkflowSection = () => {
             delay={0.1}
             className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-foreground max-w-4xl mx-auto leading-tight px-4"
           >
-            The way client collaboration{" "}
+            Our Proven Design &{" "}
             <br className="hidden md:block" />
-            should've worked from the start
+            Development Process
           </BlurReveal>
 
           <Typewriter
-            text="A streamlined workflow where clients always know what's next, what's done, and what matters"
+            text="From concept to launch, we follow a streamlined process that keeps you informed and involved at every step"
             delay={0.3}
             speed={25}
             className="mt-4 md:mt-6 text-base md:text-lg text-muted-foreground max-w-xl mx-auto px-4"
@@ -44,9 +44,10 @@ const WorkflowSection = () => {
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
+            whileHover={{ y: -4, scale: 1.01 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="bg-card rounded-3xl p-5 md:p-6 border border-border shadow-soft"
+            className="bg-card rounded-3xl p-5 md:p-6 border border-border shadow-soft hover:shadow-lg"
           >
             {/* Mini UI Preview */}
             <div className="bg-secondary rounded-2xl p-4 md:p-5 mb-5 md:mb-6">
@@ -89,25 +90,26 @@ const WorkflowSection = () => {
               delay={0.1}
               className="font-display text-xl md:text-2xl lg:text-3xl font-medium text-foreground mb-2 md:mb-3"
             >
-              Create your client{" "}
+              Discovery & Strategy{" "}
               <br className="hidden md:block" />
-              workspace
+              phase
             </BlurReveal>
             <Typewriter
-              text="Set up your workspace, brand it, and add the clients you work with. Everything starts in one organized place"
+              text="We start by understanding your business goals, target audience, and project requirements. This phase includes competitor research, content strategy, and technical planning"
               delay={0.3}
               speed={30}
               className="text-sm md:text-base text-muted-foreground"
             />
           </motion.div>
 
-          {/* Card 2 - Share Updates */}
+          {/* Card 2 - Organization System */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
+            whileHover={{ y: -4, scale: 1.01 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-card rounded-3xl p-5 md:p-6 border border-border shadow-soft"
+            className="bg-card rounded-3xl p-5 md:p-6 border border-border shadow-soft hover:shadow-lg"
           >
             {/* Mini UI Preview */}
             <div className="bg-secondary rounded-2xl p-4 md:p-5 mb-5 md:mb-6">
@@ -141,25 +143,26 @@ const WorkflowSection = () => {
               delay={0.1}
               className="font-display text-xl md:text-2xl lg:text-3xl font-medium text-foreground mb-2 md:mb-3"
             >
-              Share every{" "}
+              Design & Prototyping{" "}
               <br className="hidden md:block" />
-              update clearly
+              phase
             </BlurReveal>
             <Typewriter
-              text="Upload files, add updates, send messages, and manage approvals — all in one clear portal your clients actually understand"
+              text="Our designers create beautiful, user-focused mockups. You'll see your site come to life with interactive prototypes before we write a single line of code"
               delay={0.3}
               speed={30}
               className="text-sm md:text-base text-muted-foreground"
             />
           </motion.div>
 
-          {/* Card 3 - Align on Next Step */}
+          {/* Card 3 - Analytics Dashboard */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
+            whileHover={{ y: -4, scale: 1.01 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="bg-card rounded-3xl p-5 md:p-6 border border-border shadow-soft md:col-span-2 lg:col-span-1"
+            className="bg-card rounded-3xl p-5 md:p-6 border border-border shadow-soft hover:shadow-lg md:col-span-2 lg:col-span-1"
           >
             {/* Mini UI Preview - Chat Style */}
             <div className="bg-secondary rounded-2xl p-4 md:p-5 mb-5 md:mb-6 space-y-3 md:space-y-4">
@@ -196,12 +199,12 @@ const WorkflowSection = () => {
               delay={0.1}
               className="font-display text-xl md:text-2xl lg:text-3xl font-medium text-foreground mb-2 md:mb-3"
             >
-              Align on every{" "}
+              Development & Launch{" "}
               <br className="hidden md:block" />
-              next step
+              phase
             </BlurReveal>
             <Typewriter
-              text="Clients stay in sync with progress, timelines, and upcoming tasks without chasing you for status updates"
+              text="We build your site with modern technology, rigorous testing, and optimization. After final approval, we handle the launch and provide training on managing your new site"
               delay={0.3}
               speed={30}
               className="text-sm md:text-base text-muted-foreground"
