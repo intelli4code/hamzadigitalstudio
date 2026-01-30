@@ -108,7 +108,7 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in-up": "fade-in-up 0.6s ease-out forwards",
         "float": "float 6s ease-in-out infinite",
-        "rainbow": "rainbow 2s linear infinite",
+        "rainbow": "rainbow 4s linear infinite",
       },
     },
   },

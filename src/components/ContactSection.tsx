@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { RainbowCard } from "@/components/ui/rainbow-card";
 import { Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
 import { BlurReveal } from "@/components/ui/blur-reveal";
 import { Typewriter } from "@/components/ui/typewriter";
@@ -109,8 +110,8 @@ const ContactSection = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className="bg-card rounded-3xl p-6 md:p-8 lg:p-10 shadow-soft"
                     >
+                        <RainbowCard contentClassName="p-6 md:p-8 lg:p-10 shadow-soft">
                         <form className="space-y-6">
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
@@ -172,6 +173,7 @@ const ContactSection = () => {
                                 </span>
                             </Button>
                         </form>
+                        </RainbowCard>
                     </motion.div>
                 </div>
             </div>
