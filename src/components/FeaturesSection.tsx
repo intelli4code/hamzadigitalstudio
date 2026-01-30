@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { BlurReveal } from "@/components/ui/blur-reveal";
 import { Typewriter } from "@/components/ui/typewriter";
+import { RainbowCard } from "@/components/ui/rainbow-card";
 
 const FeaturesSection = () => {
   return (
@@ -47,43 +48,43 @@ const FeaturesSection = () => {
           className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center mb-12 md:mb-16 lg:mb-24"
         >
           {/* Dark UI Card */}
-          <div className="ui-card-dark rounded-3xl p-5 md:p-6 lg:p-8 order-2 lg:order-1">
-            <div className="flex flex-wrap items-center gap-4 md:gap-6 lg:gap-8 mb-4 md:mb-6 text-sm text-card-dark-foreground/60">
+          <RainbowCard contentClassName="p-5 md:p-6 lg:p-8 order-2 lg:order-1">
+            <div className="flex flex-wrap items-center gap-4 md:gap-6 lg:gap-8 mb-4 md:mb-6 text-sm text-muted-foreground">
               <div>
                 <span className="block text-xs uppercase tracking-wider mb-1">Client</span>
-                <span className="text-card-dark-foreground font-medium text-sm md:text-base">Kim Creed</span>
+                <span className="text-foreground font-medium text-sm md:text-base">Kim Creed</span>
               </div>
               <div>
                 <span className="block text-xs uppercase tracking-wider mb-1">Budget</span>
-                <span className="text-card-dark-foreground font-medium text-sm md:text-base">$2,450</span>
+                <span className="text-foreground font-medium text-sm md:text-base">$2,450</span>
               </div>
               <div>
                 <span className="block text-xs uppercase tracking-wider mb-1">Tasks</span>
-                <span className="text-card-dark-foreground font-medium text-sm md:text-base">12</span>
+                <span className="text-foreground font-medium text-sm md:text-base">12</span>
               </div>
             </div>
 
             <div className="space-y-2 md:space-y-3">
               {[
-                { title: "Branding for agency", color: "bg-card-dark-foreground/10" },
+                { title: "Branding for agency", color: "bg-secondary" },
                 { title: "Website design", color: "bg-primary" },
-                { title: "Webflow development", color: "bg-card-dark-foreground/5" },
+                { title: "Webflow development", color: "bg-secondary/50" },
               ].map((project, i) => (
                 <div
                   key={i}
-                  className={`flex items-center justify-between p-3 md:p-4 lg:p-5 rounded-2xl ${project.color} ${i === 1 ? 'text-primary-foreground' : 'text-card-dark-foreground'}`}
+                  className={`flex items-center justify-between p-3 md:p-4 lg:p-5 rounded-2xl ${project.color} ${i === 1 ? 'text-primary-foreground' : 'text-foreground'}`}
                 >
                   <span className="font-display text-lg sm:text-xl md:text-2xl font-medium truncate mr-3">{project.title}</span>
-                  <div className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center flex-shrink-0 ${i === 1 ? 'bg-card-dark-foreground/20' : 'bg-primary'}`}>
-                    <ArrowRight className={`w-4 h-4 md:w-5 md:h-5 ${i === 1 ? '' : 'text-primary-foreground'}`} />
+                  <div className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center flex-shrink-0 ${i === 1 ? 'bg-primary-foreground/20' : 'bg-background/50'}`}>
+                    <ArrowRight className={`w-4 h-4 md:w-5 md:h-5 ${i === 1 ? '' : 'text-foreground'}`} />
                   </div>
                 </div>
               ))}
             </div>
-          </div>
+          </RainbowCard>
 
           {/* Text Content */}
-          <div className="order-1 lg:order-2">
+          <div className="order-1 lg:order-1">
             <BlurReveal
               as="h3"
               delay={0.1}
@@ -116,7 +117,7 @@ const FeaturesSection = () => {
           className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center mb-12 md:mb-16 lg:mb-24"
         >
           {/* Text Content */}
-          <div className="order-1">
+          <div className="order-1 lg:order-1">
             <BlurReveal
               as="h3"
               delay={0.1}
@@ -140,7 +141,7 @@ const FeaturesSection = () => {
           </div>
 
           {/* UI Card */}
-          <div className="order-2 bg-primary rounded-3xl p-5 md:p-6 lg:p-8">
+          <RainbowCard className="order-2 lg:order-2" contentClassName="bg-primary p-5 md:p-6 lg:p-8">
             {/* Milestones */}
             <div className="ui-card-dark rounded-2xl p-4 md:p-5 mb-3 md:mb-4">
               <div className="flex items-center justify-between mb-3 md:mb-4">
@@ -179,7 +180,7 @@ const FeaturesSection = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </RainbowCard>
         </motion.div>
 
         {/* Feature 3 - Cash Flow */}
@@ -191,44 +192,44 @@ const FeaturesSection = () => {
           className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center"
         >
           {/* Dark UI Card */}
-          <div className="ui-card-dark rounded-3xl p-5 md:p-6 lg:p-8 order-2 lg:order-1">
+          <RainbowCard contentClassName="p-5 md:p-6 lg:p-8 order-2 lg:order-1">
             <div className="flex items-center justify-between mb-4 md:mb-6">
               <div>
-                <h4 className="font-display text-xl md:text-2xl font-medium text-card-dark-foreground">Cash Flow</h4>
+                <h4 className="font-display text-xl md:text-2xl font-medium text-foreground">Cash Flow</h4>
               </div>
-              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-card-dark-foreground/10 flex items-center justify-center">
-                <ArrowRight className="w-4 h-4 md:w-5 md:h-5 text-card-dark-foreground" />
+              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-secondary flex items-center justify-center">
+                <ArrowRight className="w-4 h-4 md:w-5 md:h-5 text-foreground" />
               </div>
             </div>
 
             <div className="flex items-center justify-between mb-3 md:mb-4">
-              <span className="text-lg md:text-xl font-semibold text-card-dark-foreground">$5,280</span>
-              <span className="text-card-dark-foreground/60 text-sm md:text-base">66%</span>
+              <span className="text-lg md:text-xl font-semibold text-foreground">$5,280</span>
+              <span className="text-muted-foreground text-sm md:text-base">66%</span>
             </div>
 
             {/* Progress Bar */}
-            <div className="h-10 md:h-12 bg-card-dark-foreground/10 rounded-full overflow-hidden mb-3 md:mb-4">
+            <div className="h-10 md:h-12 bg-secondary rounded-full overflow-hidden mb-3 md:mb-4">
               <div className="h-full w-2/3 bg-primary rounded-full" />
             </div>
 
             <div className="text-right mb-4 md:mb-6">
-              <span className="text-card-dark-foreground/60 text-sm">Goal: </span>
+              <span className="text-muted-foreground text-sm">Goal: </span>
               <span className="text-primary font-semibold text-sm md:text-base">$8,000</span>
             </div>
 
-            <div className="space-y-2 md:space-y-3 border-t border-card-dark-foreground/10 pt-3 md:pt-4">
+            <div className="space-y-2 md:space-y-3 border-t border-border pt-3 md:pt-4">
               {[
                 { date: "Yesterday", amount: "$1,500" },
                 { date: "Dec 20, 2025", amount: "$1,500" },
                 { date: "Dec 7, 2025", amount: "$4,600", muted: true },
               ].map((item, i) => (
-                <div key={i} className={`flex items-center justify-between text-sm md:text-base ${item.muted ? 'text-card-dark-foreground/40' : 'text-card-dark-foreground'}`}>
+                <div key={i} className={`flex items-center justify-between text-sm md:text-base ${item.muted ? 'text-muted-foreground/60' : 'text-foreground'}`}>
                   <span>{item.date}</span>
                   <span className="font-medium">{item.amount}</span>
                 </div>
               ))}
             </div>
-          </div>
+          </RainbowCard>
 
           {/* Text Content */}
           <div className="order-1 lg:order-2">

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { BlurReveal } from "@/components/ui/blur-reveal";
 import { Typewriter } from "@/components/ui/typewriter";
+import { RainbowCard } from "@/components/ui/rainbow-card";
 
 const testimonials = [
   {
@@ -112,7 +113,7 @@ const TestimonialsSection = () => {
                   key={index}
                   className="w-full flex-shrink-0 px-4"
                 >
-                  <div className="bg-card/80 dark:bg-card-dark/60 backdrop-blur-xl border border-border/50 dark:border-white/10 rounded-3xl p-6 md:p-8 lg:p-12 text-center relative shadow-lg">
+                  <RainbowCard contentClassName="min-h-[420px] md:min-h-[460px] flex flex-col justify-between bg-card dark:bg-card-dark backdrop-blur-xl p-6 md:p-8 lg:p-12 text-center relative shadow-lg">
                     {/* Quote Icon */}
                     <div className="absolute top-4 md:top-6 left-4 md:left-6 w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary/10 flex items-center justify-center">
                       <Quote className="w-5 h-5 md:w-6 md:h-6 text-primary" />
@@ -143,7 +144,7 @@ const TestimonialsSection = () => {
                         </p>
                       </div>
                     </div>
-                  </div>
+                  </RainbowCard>
                 </div>
               ))}
             </div>

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { BlurReveal } from "@/components/ui/blur-reveal";
 import { Typewriter } from "@/components/ui/typewriter";
+import { RainbowCard } from "@/components/ui/rainbow-card";
 
 const pricingPlans = [
   {
@@ -110,60 +111,64 @@ const PricingSection = () => {
               whileHover={{ y: -8, scale: 1.02 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 * index }}
-              className={`relative rounded-3xl p-6 md:p-8 cursor-pointer ${plan.popular
-                ? 'bg-primary text-primary-foreground ring-2 ring-primary ring-offset-4 ring-offset-card-dark shadow-xl'
-                : 'bg-card text-foreground shadow-lg hover:shadow-2xl'
-                }`}
+              className="relative"
             >
-              {/* Popular Badge */}
-              {plan.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-card-dark text-card-dark-foreground text-xs font-medium px-4 py-1 rounded-full">
-                  Most Popular
-                </div>
-              )}
-
-              {/* Plan Header */}
-              <div className="text-left mb-6 md:mb-8">
-                <h3 className={`font-display text-2xl md:text-3xl font-medium mb-2 ${plan.popular ? 'text-card-dark-foreground' : 'text-foreground'}`}>
-                  {plan.name}
-                </h3>
-                <p className={`text-sm md:text-base mb-4 md:mb-6 ${plan.popular ? 'text-card-dark-foreground/60' : 'text-muted-foreground'}`}>
-                  {plan.tagline}
-                </p>
-                <div className="flex items-baseline gap-2">
-                  <span className={`text-sm ${plan.popular ? 'text-card-dark-foreground/60' : 'text-muted-foreground'}`}>from</span>
-                  <span className={`font-display text-4xl md:text-5xl font-medium ${plan.popular ? 'text-card-dark-foreground' : 'text-foreground'}`}>
-                    ${plan.price}
-                  </span>
-                </div>
-                <p className={`text-xs md:text-sm mt-2 ${plan.popular ? 'text-card-dark-foreground/50' : 'text-muted-foreground'}`}>
-                  {plan.description}
-                </p>
-              </div>
-
-              {/* CTA Button */}
-              <Button
-                variant={plan.popular ? "secondary" : "hero"}
-                size="lg"
-                className="w-full mb-6 md:mb-8"
+              <RainbowCard
+                contentClassName={`p-6 md:p-8 cursor-pointer ${plan.popular
+                  ? 'bg-primary text-primary-foreground shadow-xl'
+                  : 'bg-card text-foreground shadow-lg hover:shadow-2xl'
+                  }`}
               >
-                {plan.cta}
-              </Button>
+                {/* Popular Badge */}
+                {plan.popular && (
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-card-dark text-card-dark-foreground text-xs font-medium px-4 py-1 rounded-full">
+                    Most Popular
+                  </div>
+                )}
 
-              {/* Features List */}
-              <ul className="space-y-3 md:space-y-4">
-                {plan.features.map((feature, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <div className={`w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center ${plan.popular ? 'bg-primary-foreground/20' : 'bg-primary/10'
-                      }`}>
-                      <Check className={`w-3 h-3 ${plan.popular ? 'text-primary-foreground' : 'text-primary'}`} />
-                    </div>
-                    <span className={`text-sm ${plan.popular ? 'text-primary-foreground/90' : 'text-muted-foreground'}`}>
-                      {feature}
+                {/* Plan Header */}
+                <div className="text-left mb-6 md:mb-8">
+                  <h3 className={`font-display text-2xl md:text-3xl font-medium mb-2 ${plan.popular ? 'text-card-dark-foreground' : 'text-foreground'}`}>
+                    {plan.name}
+                  </h3>
+                  <p className={`text-sm md:text-base mb-4 md:mb-6 ${plan.popular ? 'text-card-dark-foreground/60' : 'text-muted-foreground'}`}>
+                    {plan.tagline}
+                  </p>
+                  <div className="flex items-baseline gap-2">
+                    <span className={`text-sm ${plan.popular ? 'text-card-dark-foreground/60' : 'text-muted-foreground'}`}>from</span>
+                    <span className={`font-display text-4xl md:text-5xl font-medium ${plan.popular ? 'text-card-dark-foreground' : 'text-foreground'}`}>
+                      ${plan.price}
                     </span>
-                  </li>
-                ))}
-              </ul>
+                  </div>
+                  <p className={`text-xs md:text-sm mt-2 ${plan.popular ? 'text-card-dark-foreground/50' : 'text-muted-foreground'}`}>
+                    {plan.description}
+                  </p>
+                </div>
+
+                {/* CTA Button */}
+                <Button
+                  variant={plan.popular ? "secondary" : "hero"}
+                  size="lg"
+                  className="w-full mb-6 md:mb-8"
+                >
+                  {plan.cta}
+                </Button>
+
+                {/* Features List */}
+                <ul className="space-y-3 md:space-y-4">
+                  {plan.features.map((feature, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <div className={`w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center ${plan.popular ? 'bg-primary-foreground/20' : 'bg-primary/10'
+                        }`}>
+                        <Check className={`w-3 h-3 ${plan.popular ? 'text-primary-foreground' : 'text-primary'}`} />
+                      </div>
+                      <span className={`text-sm ${plan.popular ? 'text-primary-foreground/90' : 'text-muted-foreground'}`}>
+                        {feature}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </RainbowCard>
             </motion.div>
           ))}
         </div>
