@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 
 export const MagneticCursor = () => {
     const [isHovered, setIsHovered] = useState(false);
+    const [isTextHovered, setIsTextHovered] = useState(false);
     const [cursorText, setCursorText] = useState("");
 
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
 
-    const springConfig = { damping: 25, stiffness: 700 };
+    const springConfig = { damping: 40, stiffness: 300 };
     const cursorX = useSpring(mouseX, springConfig);
     const cursorY = useSpring(mouseY, springConfig);
 
@@ -20,17 +21,35 @@ export const MagneticCursor = () => {
 
         const handleMouseOver = (e: MouseEvent) => {
             const target = e.target as HTMLElement;
+            const tagName = target.tagName;
+
             // Check if hovering over interactive elements
-            if (
-                target.tagName === "BUTTON" ||
-                target.tagName === "A" ||
+            const isInteractive =
+                tagName === "BUTTON" ||
+                tagName === "A" ||
                 target.closest("button") ||
                 target.closest("a") ||
-                target.classList.contains("magnetic-target")
-            ) {
+                target.classList.contains("magnetic-target");
+
+            // Check if hovering over text elements
+            const isText =
+                !isInteractive &&
+                (tagName === "P" ||
+                    tagName === "H1" ||
+                    tagName === "H2" ||
+                    tagName === "H3" ||
+                    tagName === "H4" ||
+                    tagName === "H5" ||
+                    tagName === "H6" ||
+                    tagName === "SPAN" ||
+                    tagName === "LI");
+
+            if (isInteractive) {
                 setIsHovered(true);
+                setIsTextHovered(false);
             } else {
                 setIsHovered(false);
+                setIsTextHovered(isText);
                 setCursorText("");
             }
 
@@ -39,6 +58,7 @@ export const MagneticCursor = () => {
             if (cursorTarget) {
                 setCursorText(cursorTarget.getAttribute("data-cursor") || "");
                 setIsHovered(true);
+                setIsTextHovered(false);
             }
         };
 
@@ -57,7 +77,7 @@ export const MagneticCursor = () => {
 
     return (
         <motion.div
-            className="fixed top-0 left-0 w-4 h-4 rounded-full bg-primary pointer-events-none z-[9999] mix-blend-difference flex items-center justify-center font-bold text-black text-[10px]"
+            className="hidden lg:flex fixed top-0 left-0 w-4 h-4 rounded-full bg-primary pointer-events-none z-[9999] mix-blend-difference items-center justify-center font-bold text-black text-[10px]"
             style={{
                 x: cursorX,
                 y: cursorY,
@@ -65,9 +85,10 @@ export const MagneticCursor = () => {
                 translateY: "-50%",
             }}
             animate={{
-                width: isHovered ? 80 : 16,
-                height: isHovered ? 80 : 16,
-                backgroundColor: isHovered ? "var(--primary-brand)" : "#ffffff",
+                width: isHovered ? 80 : isTextHovered ? 4 : 16,
+                height: isHovered ? 80 : isTextHovered ? 32 : 16,
+                backgroundColor: isHovered ? "hsl(var(--primary-brand))" : isTextHovered ? "hsl(var(--primary-brand))" : "#ffffff",
+                radius: isTextHovered ? 4 : "50%" // Smoothly transition radius if framer-motion supports it, otherwise generic rounded-full handles it
             }}
             transition={{ type: "spring", damping: 25, stiffness: 400 }}
         >

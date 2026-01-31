@@ -54,7 +54,7 @@ const PortfolioSection = () => {
     });
 
     const x = useTransform(scrollYProgress, [0, 1], ["1%", "-75%"]);
-    const smoothX = useSpring(x, { damping: 15, stiffness: 100 });
+    const smoothX = useSpring(x, { damping: 25, stiffness: 80 });
 
     const [activeColor, setActiveColor] = useState<string>("");
 
