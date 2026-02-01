@@ -26,26 +26,31 @@ const Header = () => {
 
           {/* Desktop Navigation Links */}
           <div className="hidden lg:flex items-center gap-8">
-            <a href="#features" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            <a href="/#features" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
               Product
             </a>
-            <a href="#workflow" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            <a href="/#workflow" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
               Features
             </a>
-            <a href="#pricing" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            <a href="/#pricing" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
               Pricing
             </a>
-            <a href="#testimonials" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            <a href="/testimonials" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
               Testimonials
             </a>
           </div>
 
           {/* CTA Buttons */}
           <div className="flex items-center gap-3 md:gap-4">
-            <a href="#login" className="hidden sm:block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            <a href="/auth" className="hidden sm:block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
               Login
             </a>
-            <Button variant="default" size="default" className="group hidden sm:flex bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6">
+            <Button
+              variant="default"
+              size="default"
+              className="group hidden sm:flex bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6"
+              onClick={() => window.location.href = '/start-project'}
+            >
               Get early access
               <span className="flex items-center justify-center w-6 h-6 bg-white/20 rounded-full ml-2 group-hover:scale-110 transition-transform">
                 <ArrowUpRight className="w-3.5 h-3.5 text-current" />
@@ -81,38 +86,46 @@ const Header = () => {
           >
             <div className="section-container py-6 space-y-4">
               <a
-                href="#features"
+                href="/#features"
                 className="block py-3 text-lg font-medium text-foreground hover:text-primary transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Product
               </a>
               <a
-                href="#workflow"
+                href="/#workflow"
                 className="block py-3 text-lg font-medium text-foreground hover:text-primary transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Features
               </a>
               <a
-                href="#pricing"
+                href="/#pricing"
                 className="block py-3 text-lg font-medium text-foreground hover:text-primary transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Pricing
               </a>
               <a
-                href="#testimonials"
+                href="/testimonials"
                 className="block py-3 text-lg font-medium text-foreground hover:text-primary transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Testimonials
               </a>
               <div className="pt-4 flex flex-col gap-3">
-                <a href="#login" className="text-center py-3 text-lg font-medium text-muted-foreground">
+                <a href="/auth" className="text-center py-3 text-lg font-medium text-muted-foreground">
                   Login
                 </a>
-                <Button variant="hero" size="lg" className="w-full group">
+                <Button
+                  variant="hero"
+                  size="lg"
+                  className="w-full group"
+                  onClick={() => {
+                    window.location.href = '/start-project';
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
                   Get early access
                   <span className="flex items-center justify-center w-6 h-6 bg-primary rounded-md ml-1 group-hover:bg-orange-light transition-colors">
                     <ArrowUpRight className="w-3.5 h-3.5 text-primary-foreground" />

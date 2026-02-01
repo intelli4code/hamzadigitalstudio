@@ -60,14 +60,14 @@ const HeroSection = () => {
         className="relative z-10 flex-1 flex flex-col items-center justify-center section-container text-center py-12 md:py-20 px-4"
       >
         {/* Day/Night Toggle */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="mb-6 md:mb-8 flex justify-center"
         >
           <ThemeToggle />
-        </motion.div>
+        </motion.div> */}
 
         {/* Headline */}
         <BlurReveal
@@ -95,7 +95,11 @@ const HeroSection = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-8 md:mt-10"
         >
-          <RainbowButton size="lg" className="group px-8 py-6 text-base md:text-lg font-semibold">
+          <RainbowButton
+            size="lg"
+            className="group px-8 py-6 text-base md:text-lg font-semibold"
+            onClick={() => window.location.href = '/start-project'}
+          >
             Start Your Project
             <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 ml-2 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
           </RainbowButton>

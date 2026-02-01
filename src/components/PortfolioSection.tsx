@@ -157,7 +157,23 @@ const PortfolioSection = () => {
                         </RainbowCard>
                     ))}
 
-                    {/* Breathing Room End Space */}
+                    {/* CTA Card */}
+                    <div className="w-[80vw] md:w-[500px] flex-shrink-0 flex flex-col justify-center items-center text-center px-4">
+                        <h3 className="font-display text-4xl md:text-5xl font-bold mb-6">
+                            See more <br /> <span className="text-primary italic">works</span>
+                        </h3>
+                        <p className="text-muted-foreground mb-8 max-w-sm">
+                            Explore our comprehensive portfolio to see how we've helped other brands scale.
+                        </p>
+                        <Button
+                            className="rounded-full px-8 py-6 text-lg group"
+                            onClick={() => window.location.href = '/portfolio'}
+                        >
+                            View All Projects
+                            <ArrowUpRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                        </Button>
+                    </div>
+
                     <div className="w-[10vw] flex-shrink-0" />
                 </motion.div>
             </div>

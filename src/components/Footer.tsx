@@ -22,7 +22,11 @@ const Footer = () => {
         <p className="text-base md:text-lg text-card-dark-foreground/60 max-w-xl mx-auto mb-8 md:mb-10 px-4">
           Let's create a website that drives real results for your business
         </p>
-        <RainbowButton size="lg" className="group px-8 py-6 text-base md:text-lg font-semibold">
+        <RainbowButton
+          size="lg"
+          className="group px-8 py-6 text-base md:text-lg font-semibold"
+          onClick={() => window.location.href = '/start-project'}
+        >
           Start Your Project
           <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 ml-2 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
         </RainbowButton>

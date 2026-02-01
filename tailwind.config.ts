@@ -99,8 +99,27 @@ export default {
           "50%": { transform: "translateY(-10px)" },
         },
         "rainbow": {
-          "0%": { backgroundPosition: "0%" },
-          "100%": { backgroundPosition: "200%" },
+          "0%": { backgroundPosition: "0% 50%" },
+          "100%": { backgroundPosition: "200% 50%" },
+        },
+        // Blob animations - CSS-based for performance
+        "blob-1": {
+          "0%, 100%": { transform: "translate(0, 0) scale(1)" },
+          "33%": { transform: "translate(80px, 40px) scale(1.1)" },
+          "66%": { transform: "translate(40px, -30px) scale(0.95)" },
+        },
+        "blob-2": {
+          "0%, 100%": { transform: "translate(0, 0) scale(1)" },
+          "33%": { transform: "translate(-60px, -50px) scale(1.15)" },
+          "66%": { transform: "translate(30px, 60px) scale(0.9)" },
+        },
+        "blob-3": {
+          "0%, 100%": { transform: "translate(0, 0) scale(1)" },
+          "50%": { transform: "translate(50px, -40px) scale(1.1)" },
+        },
+        "blob-4": {
+          "0%, 100%": { transform: "translate(0, 0) scale(1)" },
+          "50%": { transform: "translate(-40px, 50px) scale(1.05)" },
         },
       },
       animation: {
@@ -109,6 +128,10 @@ export default {
         "fade-in-up": "fade-in-up 0.6s ease-out forwards",
         "float": "float 6s ease-in-out infinite",
         "rainbow": "rainbow 4s linear infinite",
+        "blob-1": "blob-1 25s ease-in-out infinite",
+        "blob-2": "blob-2 30s ease-in-out infinite",
+        "blob-3": "blob-3 20s ease-in-out infinite",
+        "blob-4": "blob-4 22s ease-in-out infinite",
       },
     },
   },

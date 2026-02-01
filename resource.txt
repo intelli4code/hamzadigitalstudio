@@ -1,67 +1,149 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { ArrowRight, CheckCircle2, MessageSquare, Files, Layout, Sparkles, Monitor, Rocket } from 'lucide-react';
+import { 
+  ArrowRight, 
+  CheckCircle2, 
+  MessageSquare, 
+  Files, 
+  Layout, 
+  Sparkles, 
+  Monitor, 
+  Rocket, 
+  Menu, 
+  X, 
+  ChevronRight 
+} from 'lucide-react';
 
 /**
- * Main Application Component
- * Rebranded for HM Studio - A Premium Web Design Agency
+ * Custom hook to detect if an element is in view
  */
+function useIsVisible(ref) {
+  const [isIntersecting, setIntersecting] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIntersecting(true);
+        observer.unobserve(el);
+      }
+    }, { threshold: 0.1 });
+
+    observer.observe(el);
+    return () => {
+      if (el) observer.unobserve(el);
+      observer.disconnect();
+    };
+  }, [ref]);
+
+  return isIntersecting;
+}
+
+/**
+ * Standard Rounded Rect for Canvas compatibility
+ */
+function drawRoundedRect(ctx, x, y, width, height, radius) {
+  ctx.beginPath();
+  ctx.moveTo(x + radius, y);
+  ctx.lineTo(x + width - radius, y);
+  ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+  ctx.lineTo(x + width, y + height - radius);
+  ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+  ctx.lineTo(x + radius, y + height);
+  ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+  ctx.lineTo(x, y + radius);
+  ctx.quadraticCurveTo(x, y, x + radius, y);
+  ctx.closePath();
+}
+
 export default function App() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
-    <div className="min-h-screen bg-[#FDFDFD] selection:bg-orange-100 font-sans">
-      <header className="py-6 px-10 flex justify-between items-center border-b border-gray-50">
+    <div className="min-h-screen bg-[#FDFDFD] selection:bg-orange-100 font-sans text-slate-900 overflow-x-hidden">
+      {/* Header */}
+      <header className="py-4 md:py-6 px-6 md:px-10 flex justify-between items-center border-b border-gray-50 bg-white/80 backdrop-blur-md sticky top-0 z-50">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-[#FF5C00] rounded-lg flex items-center justify-center text-white font-bold text-xl">H</div>
-          <div className="font-serif text-2xl font-bold tracking-tight text-slate-900">HM Studio</div>
+          <div className="w-8 h-8 bg-[#FF5C00] rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-orange-500/20">H</div>
+          <div className="font-serif text-xl md:text-2xl font-bold tracking-tight text-slate-900">HM Studio</div>
         </div>
-        <nav className="hidden md:flex gap-8 text-sm font-medium text-slate-500 uppercase tracking-widest">
-          <a href="#" className="hover:text-slate-900 transition-colors">Portfolio</a>
-          <a href="#" className="hover:text-slate-900 transition-colors">Services</a>
-          <a href="#" className="hover:text-slate-900 transition-colors">Process</a>
+
+        <nav className="hidden md:flex gap-8 text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
+          <a href="#" className="hover:text-[#FF5C00] transition-colors">Portfolio</a>
+          <a href="#" className="hover:text-[#FF5C00] transition-colors">Services</a>
+          <a href="#" className="hover:text-[#FF5C00] transition-colors">Process</a>
         </nav>
-        <button className="bg-[#FF5C00] text-white px-8 py-2.5 rounded-full text-sm font-bold shadow-lg shadow-orange-500/20 hover:scale-105 transition-transform active:scale-95">
-          Start a Project
-        </button>
+
+        <div className="flex items-center gap-4">
+          <button className="hidden sm:block bg-[#FF5C00] text-white px-6 md:px-8 py-2.5 rounded-full text-xs font-bold shadow-lg shadow-orange-500/20 hover:scale-105 transition-transform active:scale-95">
+            Start a Project
+          </button>
+          
+          <button 
+            className="md:hidden p-2 text-slate-600"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X /> : <Menu />}
+          </button>
+        </div>
       </header>
+
+      {/* Mobile Menu */}
+      <div className={`fixed inset-0 z-40 bg-white pt-24 px-6 md:hidden transition-all duration-300 ${isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'}`}>
+        <nav className="flex flex-col gap-8 text-2xl font-serif font-bold text-slate-900">
+          <a href="#" onClick={() => setIsMenuOpen(false)}>Portfolio</a>
+          <a href="#" onClick={() => setIsMenuOpen(false)}>Services</a>
+          <a href="#" onClick={() => setIsMenuOpen(false)}>Process</a>
+          <button className="bg-[#FF5C00] text-white px-8 py-4 rounded-2xl text-lg font-bold">
+            Start a Project
+          </button>
+        </nav>
+      </div>
 
       <main>
         <TransformSection />
+        <FeaturesGrid />
       </main>
+
+      <footer className="py-12 border-t border-slate-100 bg-white text-center">
+        <p className="text-slate-400 text-sm font-medium px-6 leading-relaxed">
+          © 2024 HM Studio Design Lab. Optimized for mobile workflow.
+        </p>
+      </footer>
     </div>
   );
 }
 
-/**
- * The core section featuring the Canvas-based mind map for HM Studio
- */
 function TransformSection() {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
-  const isInView = useInView(containerRef, { once: true, amount: 0.2 });
+  const isVisible = useIsVisible(containerRef);
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isVisible) return;
 
     const canvas = canvasRef.current;
+    if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let animationFrameId;
     let startTime = Date.now();
 
-    // Contextual nodes for a Web Design Agency
-    const scatteredNodes = [
-      { text: "Slack pings", x: 140, y: 120, offset: 0, opacity: 0.7 },
-      { text: "Figma links", x: 100, y: 240, offset: 2, opacity: 0.8 },
-      { text: "Asset folders", x: 200, y: 340, offset: 4, opacity: 0.6 },
-      { text: "Email feedback", x: 280, y: 80, offset: 1, opacity: 0.7 },
-      { text: "Zoom calls", x: 300, y: 260, offset: 3, opacity: 0.9 },
+    // Data definitions
+    const scatteredData = [
+      { text: "Slack pings", desktopX: -240, desktopY: -100, mobileX: -100, mobileY: -220, opacity: 0.7 },
+      { text: "Figma links", desktopX: -260, desktopY: 20, mobileX: 80, mobileY: -240, opacity: 0.8 },
+      { text: "Asset folders", desktopX: -180, desktopY: 140, mobileX: -60, mobileY: -160, opacity: 0.6 },
+      { text: "Email feedback", desktopX: -120, desktopY: -180, mobileX: 100, mobileY: -140, opacity: 0.7 },
+      { text: "Zoom calls", desktopX: -80, desktopY: 100, mobileX: 0, mobileY: -190, opacity: 0.9 },
     ];
 
-    const streamlinedNodes = [
-      { text: "Live design previews", y: 100, color: "#FF5C00" },
-      { text: "Consolidated feedback", y: 170, color: "#E1306C" },
-      { text: "Brand asset library", y: 240, color: "#28A745" },
-      { text: "Interactive roadmaps", y: 310, color: "#DC3545" },
-      { text: "One-click approvals", y: 380, color: "#007BFF" },
+    const streamlinedData = [
+      { text: "Live design previews", desktopY: -140, color: "#FF5C00" },
+      { text: "Consolidated feedback", desktopY: -70, color: "#E1306C" },
+      { text: "Brand asset library", desktopY: 0, color: "#28A745" },
+      { text: "Interactive roadmaps", desktopY: 70, color: "#DC3545" },
+      { text: "One-click approvals", desktopY: 140, color: "#007BFF" },
     ];
 
     const render = () => {
@@ -70,6 +152,9 @@ function TransformSection() {
       
       const dpr = window.devicePixelRatio || 1;
       const rect = canvas.getBoundingClientRect();
+      if (rect.width === 0) return;
+
+      const isMobile = rect.width < 768;
       
       if (canvas.width !== rect.width * dpr || canvas.height !== rect.height * dpr) {
         canvas.width = rect.width * dpr;
@@ -82,118 +167,126 @@ function TransformSection() {
       
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-      const hubSize = 130;
-      const hubX = centerX - hubSize / 2;
-      const hubY = centerY - hubSize / 2;
+      const hubSize = isMobile ? 90 : 130;
 
-      // 1. Draw Scattered Side Connections (LEFT)
-      scatteredNodes.forEach((node) => {
-        const floatY = Math.sin(elapsed + node.offset) * 12;
-        const floatX = Math.cos(elapsed * 0.8 + node.offset) * 8;
-        const nx = node.x + floatX;
-        const ny = node.y + floatY;
+      // 1. Draw Scattered Nodes (Top on Mobile, Left on Desktop)
+      scatteredData.forEach((node, i) => {
+        const floatY = Math.sin(elapsed + i) * 10;
+        const floatX = Math.cos(elapsed * 0.8 + i) * 6;
+        
+        let nx, ny;
+        if (isMobile) {
+          nx = centerX + node.mobileX;
+          ny = centerY + node.mobileY + floatY;
+        } else {
+          nx = centerX + node.desktopX + floatX;
+          ny = centerY + node.desktopY + floatY;
+        }
 
+        // Line to Hub
         ctx.beginPath();
-        ctx.setLineDash([8, 6]);
-        ctx.lineWidth = 2.5; // Thicker lines
-        ctx.strokeStyle = `rgba(100, 116, 139, ${node.opacity * 0.5})`; // Darker Slate-500
-        ctx.moveTo(nx + 40, ny);
-        ctx.quadraticCurveTo(centerX - 120, ny, centerX - 40, centerY);
+        ctx.setLineDash([6, 6]);
+        ctx.lineWidth = 1.5;
+        ctx.strokeStyle = `rgba(148, 163, 184, ${node.opacity * 0.35})`;
+        ctx.moveTo(nx, ny);
+        if (isMobile) {
+          ctx.quadraticCurveTo(nx, centerY - hubSize/2, centerX, centerY - 20);
+        } else {
+          ctx.quadraticCurveTo(centerX - hubSize/2, ny, centerX - 20, centerY);
+        }
         ctx.stroke();
+
+        // Bubble
+        ctx.setLineDash([]);
+        ctx.fillStyle = "white";
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = "rgba(0,0,0,0.03)";
+        const bw = isMobile ? 85 : 110;
+        const bh = isMobile ? 32 : 40;
+        drawRoundedRect(ctx, nx - bw/2, ny - bh/2, bw, bh, bh/2);
+        ctx.fill();
+        ctx.strokeStyle = "rgba(226, 232, 240, 0.8)";
+        ctx.stroke();
+
+        ctx.fillStyle = "#475569";
+        ctx.font = `bold ${isMobile ? 10 : 12}px Inter, sans-serif`;
+        ctx.textAlign = "center";
+        ctx.fillText(node.text, nx, ny + (isMobile ? 3 : 4));
       });
 
-      // 2. Draw Streamlined Side Connections (RIGHT)
-      streamlinedNodes.forEach((node, i) => {
-        const targetX = centerX + 180;
-        const targetY = node.y;
-        const revealFactor = Math.min(1, Math.max(0, (elapsed - 0.4) * 1.5 - i * 0.2));
+      // 2. Draw Streamlined Nodes (Bottom on Mobile, Right on Desktop)
+      streamlinedData.forEach((node, i) => {
+        const revealFactor = Math.min(1, Math.max(0, (elapsed - 0.4) * 1.5 - i * 0.15));
+        
+        let targetX, targetY;
+        if (isMobile) {
+          targetX = centerX - (rect.width * 0.4);
+          targetY = centerY + (hubSize/2) + 40 + (i * 45);
+        } else {
+          targetX = centerX + 180;
+          targetY = centerY + node.desktopY;
+        }
         
         if (revealFactor > 0) {
           ctx.beginPath();
-          ctx.setLineDash([7, 5]);
-          ctx.lineWidth = 2.5; // Thicker lines
-          ctx.strokeStyle = `rgba(148, 163, 184, ${revealFactor * 0.8})`; // Darker Slate-300/400
-          ctx.moveTo(centerX + 40, centerY);
-          ctx.quadraticCurveTo(centerX + 100, targetY, targetX, targetY);
+          ctx.setLineDash([5, 5]);
+          ctx.lineWidth = 2;
+          ctx.strokeStyle = `rgba(148, 163, 184, ${revealFactor * 0.4})`;
+          
+          if (isMobile) {
+            ctx.moveTo(centerX, centerY + 20);
+            ctx.quadraticCurveTo(centerX, targetY, targetX + 100, targetY);
+          } else {
+            ctx.moveTo(centerX + 20, centerY);
+            ctx.quadraticCurveTo(centerX + 100, targetY, targetX, targetY);
+          }
           ctx.stroke();
+
+          ctx.save();
+          ctx.globalAlpha = revealFactor;
+          ctx.fillStyle = "white";
+          ctx.shadowBlur = 15;
+          ctx.shadowColor = "rgba(0,0,0,0.04)";
+          const cw = isMobile ? rect.width * 0.8 : 240;
+          const ch = isMobile ? 36 : 40;
+          const cx = isMobile ? centerX - cw/2 : targetX;
+          drawRoundedRect(ctx, cx, targetY - ch/2, cw, ch, 10);
+          ctx.fill();
+          ctx.strokeStyle = "#F8FAFC";
+          ctx.stroke();
+
+          // Dot
+          ctx.fillStyle = node.color;
+          ctx.beginPath();
+          ctx.arc(cx + 20, targetY, 4, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Text
+          ctx.fillStyle = "#0f172a";
+          ctx.textAlign = "left";
+          ctx.font = `bold ${isMobile ? 11 : 13}px Inter, sans-serif`;
+          ctx.fillText(node.text, cx + 40, targetY + 4);
+          ctx.restore();
         }
       });
 
-      // 3. Draw Left Bubbles
-      scatteredNodes.forEach((node) => {
-        const floatY = Math.sin(elapsed + node.offset) * 12;
-        const floatX = Math.cos(elapsed * 0.8 + node.offset) * 8;
-        const nx = node.x + floatX;
-        const ny = node.y + floatY;
-
-        ctx.setLineDash([]);
-        ctx.fillStyle = `rgba(255, 255, 255, ${node.opacity})`;
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = "rgba(0,0,0,0.05)";
-        ctx.beginPath();
-        ctx.roundRect(nx - 55, ny - 20, 110, 40, 20);
-        ctx.fill();
-        ctx.shadowBlur = 0;
-        ctx.strokeStyle = "rgba(203, 213, 225, 0.9)";
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
-
-        ctx.fillStyle = "#334155";
-        ctx.font = "bold 13px Inter, sans-serif";
-        ctx.textAlign = "center";
-        ctx.fillText(node.text, nx, ny + 5);
-      });
-
-      // 4. Draw Center Hub (HM STUDIO)
-      ctx.shadowBlur = 40;
-      ctx.shadowColor = "rgba(255, 92, 0, 0.5)";
-      const grad = ctx.createLinearGradient(hubX, hubY, hubX + hubSize, hubY + hubSize);
+      // 3. Central Hub
+      ctx.shadowBlur = 30;
+      ctx.shadowColor = "rgba(255, 92, 0, 0.35)";
+      const grad = ctx.createLinearGradient(centerX - hubSize/2, centerY - hubSize/2, centerX + hubSize/2, centerY + hubSize/2);
       grad.addColorStop(0, "#FF8A00");
       grad.addColorStop(1, "#FF5C00");
       ctx.fillStyle = grad;
-      ctx.beginPath();
-      ctx.roundRect(hubX, hubY, hubSize, hubSize, 40);
+      drawRoundedRect(ctx, centerX - hubSize/2, centerY - hubSize/2, hubSize, hubSize, isMobile ? 24 : 40);
       ctx.fill();
       
       ctx.shadowBlur = 0;
       ctx.fillStyle = "white";
       ctx.textAlign = "center";
-      ctx.font = "bold 22px font-serif, serif";
-      ctx.fillText("HM", centerX, centerY - 5);
-      ctx.font = "bold 14px Inter, sans-serif";
-      ctx.fillText("STUDIO", centerX, centerY + 18);
-
-      // 5. Draw Right Capsules
-      streamlinedNodes.forEach((node, i) => {
-        const targetX = centerX + 180;
-        const targetY = node.y;
-        const revealFactor = Math.min(1, Math.max(0, (elapsed - 0.4) * 1.5 - i * 0.2));
-        
-        if (revealFactor > 0) {
-          ctx.save();
-          ctx.globalAlpha = revealFactor;
-          ctx.fillStyle = "white";
-          ctx.shadowBlur = 12;
-          ctx.shadowColor = "rgba(0,0,0,0.06)";
-          ctx.beginPath();
-          ctx.roundRect(targetX, targetY - 20, 250, 40, 12);
-          ctx.fill();
-          ctx.shadowBlur = 0;
-          ctx.strokeStyle = "#F1F5F9";
-          ctx.stroke();
-
-          ctx.fillStyle = node.color;
-          ctx.beginPath();
-          ctx.arc(targetX + 25, targetY, 5, 0, Math.PI * 2);
-          ctx.fill();
-
-          ctx.fillStyle = "#0f172a";
-          ctx.textAlign = "left";
-          ctx.font = "700 14px Inter, sans-serif";
-          ctx.fillText(node.text, targetX + 48, targetY + 5);
-          ctx.restore();
-        }
-      });
+      ctx.font = `bold ${isMobile ? 18 : 24}px serif`;
+      ctx.fillText("HM", centerX, centerY - (isMobile ? 2 : 5));
+      ctx.font = `bold ${isMobile ? 10 : 12}px Inter, sans-serif`;
+      ctx.fillText("STUDIO", centerX, centerY + (isMobile ? 12 : 18));
 
       ctx.restore();
       animationFrameId = requestAnimationFrame(render);
@@ -201,99 +294,38 @@ function TransformSection() {
 
     render();
     return () => cancelAnimationFrame(animationFrameId);
-  }, [isInView]);
+  }, [isVisible]);
 
   return (
-    <section ref={containerRef} className="py-20 md:py-32 overflow-hidden relative">
+    <section ref={containerRef} className="py-12 md:py-24 overflow-hidden relative">
       <div className="max-w-7xl mx-auto px-6">
         
-        {/* HM Studio Messaging */}
-        <div className="text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-50 text-[#FF5C00] text-[10px] font-black uppercase tracking-[0.2em] mb-8 border border-orange-100/50"
-          >
+        <div className={`text-center mb-12 md:mb-16 transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-50 text-[#FF5C00] text-[9px] font-black uppercase tracking-[0.2em] mb-6 border border-orange-100/50">
             <Sparkles className="w-3.5 h-3.5" />
-            The Studio Workflow
-          </motion.div>
+            Workflow Transformation
+          </div>
           
-          <motion.h2 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: [0.19, 1, 0.22, 1] }}
-            className="text-4xl md:text-7xl font-serif text-slate-900 leading-[1.1] mb-8 max-w-5xl mx-auto tracking-tight"
-          >
-            From scattered feedback to a <span className="italic text-[#FF5C00]">seamless</span> launch experience
-          </motion.h2>
-          
-          <motion.p 
-             initial={{ opacity: 0 }}
-             whileInView={{ opacity: 1 }}
-             transition={{ delay: 0.4 }}
-             className="text-slate-500 text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed font-light"
-          >
-            HM Studio provides a transparent design environment. Stop digging through emails and start seeing your digital vision come to life.
-          </motion.p>
+          <h2 className="text-3xl md:text-6xl font-serif text-slate-900 leading-[1.1] mb-6 max-w-4xl mx-auto tracking-tight">
+            Consolidate your <span className="italic text-[#FF5C00]">digital scatteredness</span>
+          </h2>
         </div>
 
-        {/* The Interaction Canvas */}
-        <div className="relative w-full aspect-[4/3] md:aspect-[21/9] min-h-[450px] md:max-h-[650px] border border-slate-100 rounded-[3rem] bg-white shadow-[0_40px_100px_-30px_rgba(0,0,0,0.08)] overflow-hidden group">
+        <div className={`relative w-full aspect-[2/3] sm:aspect-[4/3] md:aspect-[21/9] min-h-[600px] md:min-h-[500px] border border-slate-100 rounded-[2.5rem] bg-white shadow-[0_40px_100px_-30px_rgba(0,0,0,0.08)] overflow-hidden transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
           <canvas ref={canvasRef} className="w-full h-full" />
           
-          <div className="absolute top-10 left-10 hidden md:block">
-             <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] text-slate-300">
-                <div className="w-3 h-3 rounded-full border-2 border-slate-200 border-dashed animate-spin-slow" />
+          <div className="absolute top-6 left-6">
+             <div className="flex items-center gap-2 text-[8px] font-black uppercase tracking-[0.3em] text-slate-300">
+                <div className="w-2 h-2 rounded-full border-2 border-slate-200 border-dashed animate-spin-slow" />
                 Fragmented Sources
              </div>
           </div>
-
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-12 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-            <div className="flex items-center gap-3">
-              <div className="w-2.5 h-2.5 rounded-full bg-slate-100 border border-slate-200" />
-              Old Process
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-2.5 h-2.5 rounded-full bg-[#FF5C00] shadow-[0_0_15px_rgba(255,92,0,0.6)]" />
-              HM Studio
-            </div>
-          </div>
-        </div>
-
-        {/* HM Studio Service Features */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-24">
-          {[
-            { icon: Layout, title: "Live Previews", desc: "Interact with your website designs in real-time. Review prototypes on desktop and mobile instantly.", color: "orange" },
-            { icon: MessageSquare, title: "Design Feedback", desc: "No more long email chains. Leave feedback directly on the design frames for faster revisions.", color: "blue" },
-            { icon: Rocket, title: "Launch Roadmap", desc: "Track every step from wireframes to development. Know exactly when your site will go live.", color: "green" }
-          ].map((item, idx) => (
-            <motion.div 
-              key={idx}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 * idx, duration: 0.8 }}
-              className="group p-12 bg-white border border-slate-100 rounded-[2.5rem] hover:border-orange-100 hover:shadow-2xl hover:shadow-orange-500/5 transition-all duration-500"
-            >
-              <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-10 transition-transform group-hover:scale-110 duration-500 ${
-                item.color === 'orange' ? 'bg-orange-50 text-[#FF5C00]' : 
-                item.color === 'blue' ? 'bg-blue-50 text-blue-500' : 'bg-green-50 text-green-500'
-              }`}>
-                <item.icon className="w-8 h-8" />
-              </div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-5">{item.title}</h3>
-              <p className="text-slate-500 leading-relaxed text-base">{item.desc}</p>
-            </motion.div>
-          ))}
         </div>
       </div>
       
-      {/* Background Decor */}
       <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-1/3 h-1/2 bg-orange-50/20 blur-[150px] rounded-full" />
-        <div className="absolute bottom-0 left-0 w-1/3 h-1/2 bg-blue-50/20 blur-[150px] rounded-full" />
-        <div className="absolute inset-0 opacity-[0.03]" 
-          style={{ backgroundImage: `linear-gradient(#1e293b 1px, transparent 1px), linear-gradient(90deg, #1e293b 1px, transparent 1px)`, backgroundSize: '100px 100px' }} 
-        />
+        <div className="absolute top-0 right-0 w-1/3 h-1/2 bg-orange-50/10 blur-[100px] rounded-full" />
+        <div className="absolute bottom-0 left-0 w-1/3 h-1/2 bg-blue-50/10 blur-[100px] rounded-full" />
       </div>
 
       <style>{`
@@ -302,9 +334,46 @@ function TransformSection() {
           to { transform: rotate(360deg); }
         }
         .animate-spin-slow {
-          animation: spin-slow 8s linear infinite;
+          animation: spin-slow 12s linear infinite;
         }
       `}</style>
+    </section>
+  );
+}
+
+function FeaturesGrid() {
+  const containerRef = useRef(null);
+  const isVisible = useIsVisible(containerRef);
+  
+  const features = [
+    { icon: Layout, title: "Live Previews", desc: "Interact with designs in real-time. Review prototypes on desktop and mobile instantly.", color: "orange" },
+    { icon: MessageSquare, title: "Central Feedback", desc: "No more long email chains. Leave feedback directly for faster revisions.", color: "blue" },
+    { icon: Rocket, title: "Launch Roadmap", desc: "Track every step from wireframes to dev. Know exactly when your site will go live.", color: "green" }
+  ];
+
+  return (
+    <section ref={containerRef} className="py-20 px-6 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {features.map((item, idx) => (
+          <div 
+            key={idx}
+            className={`p-8 bg-white border border-slate-100 rounded-[2rem] hover:border-orange-100 hover:shadow-xl transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+            style={{ transitionDelay: `${idx * 150}ms` }}
+          >
+            <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 ${
+              item.color === 'orange' ? 'bg-orange-50 text-[#FF5C00]' : 
+              item.color === 'blue' ? 'bg-blue-50 text-blue-500' : 'bg-green-50 text-green-500'
+            }`}>
+              <item.icon className="w-6 h-6" />
+            </div>
+            <h3 className="text-xl font-bold text-slate-900 mb-3">{item.title}</h3>
+            <p className="text-slate-500 leading-relaxed text-sm mb-6">{item.desc}</p>
+            <button className="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-[#FF5C00] transition-colors">
+              Read More <ChevronRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        ))}
+      </div>
     </section>
   );
 }

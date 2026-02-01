@@ -31,18 +31,9 @@ export const MagneticCursor = () => {
                 target.closest("a") ||
                 target.classList.contains("magnetic-target");
 
-            // Check if hovering over text elements
+            // Check if hovering over H1 headings only (for text cursor effect)
             const isText =
-                !isInteractive &&
-                (tagName === "P" ||
-                    tagName === "H1" ||
-                    tagName === "H2" ||
-                    tagName === "H3" ||
-                    tagName === "H4" ||
-                    tagName === "H5" ||
-                    tagName === "H6" ||
-                    tagName === "SPAN" ||
-                    tagName === "LI");
+                !isInteractive && tagName === "H1";
 
             if (isInteractive) {
                 setIsHovered(true);
@@ -65,12 +56,27 @@ export const MagneticCursor = () => {
         window.addEventListener("mousemove", moveCursor);
         window.addEventListener("mouseover", handleMouseOver);
 
-        // Hide default cursor
-        document.body.style.cursor = "none";
+        // Hide default cursor only on large screens (matching lg:flex)
+        const mediaQuery = window.matchMedia("(min-width: 1024px)");
+
+        const handleCursorVisibility = () => {
+            if (mediaQuery.matches) {
+                document.body.style.cursor = "none";
+            } else {
+                document.body.style.cursor = "auto";
+            }
+        };
+
+        // Initial check
+        handleCursorVisibility();
+
+        // Listen for resize/breakpoint changes
+        mediaQuery.addEventListener("change", handleCursorVisibility);
 
         return () => {
             window.removeEventListener("mousemove", moveCursor);
             window.removeEventListener("mouseover", handleMouseOver);
+            mediaQuery.removeEventListener("change", handleCursorVisibility);
             document.body.style.cursor = "auto";
         };
     }, [mouseX, mouseY]);
