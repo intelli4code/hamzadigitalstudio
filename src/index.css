@@ -142,6 +142,7 @@
     --color-4: oklch(80.2% 0.134 225);
     --color-5: oklch(90.7% 0.231 133);
   }
+
   .theme {
     --animate-rainbow: rainbow var(--speed, 2s) infinite linear;
   }
@@ -159,6 +160,44 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  /* Hide all cursor types on desktop when magnetic cursor is active */
+  @media (min-width: 1024px) {
+
+    body.magnetic-cursor-active,
+    body.magnetic-cursor-active *,
+    body.magnetic-cursor-active *::before,
+    body.magnetic-cursor-active *::after {
+      cursor: none !important;
+    }
+  }
+
+  /* Custom scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, hsl(var(--primary)), hsl(184 62% 35%));
+    border-radius: 10px;
+    border: 2px solid hsl(var(--muted));
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, hsl(184 62% 50%), hsl(var(--primary)));
+  }
+
+  /* Firefox scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--primary)) hsl(var(--muted));
   }
 
   /* Serif display headings */
@@ -248,6 +287,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -255,11 +295,12 @@
 
 @theme inline {
   @keyframes rainbow {
-  0% {
-    background-position: 0%;
+    0% {
+      background-position: 0%;
     }
-  100% {
-    background-position: 200%;
+
+    100% {
+      background-position: 200%;
     }
   }
 }

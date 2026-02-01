@@ -34,15 +34,15 @@ export default function StartProject() {
 
             <motion.div
                 layout
-                className="w-full max-w-5xl h-[650px] rounded-[2.5rem] shadow-2xl overflow-hidden relative p-[3px] animate-rainbow bg-[length:200%_auto] z-10"
+                className="w-full max-w-5xl min-h-[600px] lg:h-[650px] rounded-2xl md:rounded-[2.5rem] shadow-2xl overflow-hidden relative p-[2px] md:p-[3px] animate-rainbow bg-[length:200%_auto] z-10"
                 style={{ backgroundImage: 'linear-gradient(to right, #ec4899, #8b5cf6, #06b6d4, #ec4899)' }}
             >
-                <div className="w-full h-full bg-card rounded-[2.3rem] flex flex-col md:flex-row overflow-hidden relative">
+                <div className="w-full h-full bg-card rounded-xl md:rounded-[2.3rem] flex flex-col md:flex-row overflow-hidden relative">
 
                     {/* Left Sidebar - Steps */}
-                    <div className="w-full md:w-1/3 bg-muted/30 p-8 md:p-12 border-b md:border-b-0 md:border-r border-border flex flex-col justify-between">
+                    <div className="w-full md:w-1/3 bg-muted/30 p-6 md:p-8 lg:p-12 border-b md:border-b-0 md:border-r border-border flex flex-col justify-between">
                         <div>
-                            <h2 className="font-display text-2xl font-bold mb-2">Start a Project</h2>
+                            <h2 className="font-display text-xl md:text-2xl font-bold mb-2">Start a Project</h2>
                             <p className="text-muted-foreground text-sm mb-8">Let's bring your vision to life. Fill out the details below.</p>
 
                             <div className="space-y-6">
@@ -73,7 +73,7 @@ export default function StartProject() {
                     </div>
 
                     {/* Right Content - Form */}
-                    <div className="w-full md:w-2/3 p-8 md:p-12 flex flex-col relative overflow-hidden">
+                    <div className="w-full md:w-2/3 p-6 md:p-8 lg:p-12 flex flex-col relative overflow-hidden">
 
                         <div className="flex-1 relative z-10 overflow-y-auto">
                             <AnimatePresence mode="wait">
@@ -160,7 +160,7 @@ export default function StartProject() {
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div className="space-y-2">
                                                 <Label>Budget Range</Label>
-                                                <select className="flex h-10 w-full rounded-xl border border-input bg-secondary/30 px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                                                <select className="flex h-10 w-full rounded-xl border border-input bg-card px-3 py-2 text-sm text-foreground ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>option]:bg-card [&>option]:text-foreground">
                                                     <option>$1k - $5k</option>
                                                     <option>$5k - $10k</option>
                                                     <option>$10k - $25k</option>

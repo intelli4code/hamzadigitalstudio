@@ -1,7 +1,14 @@
 import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
-export const MagneticCursor = () => {
+// Set this to false to disable the magnetic cursor globally
+export const MAGNETIC_CURSOR_ENABLED = false;
+
+interface MagneticCursorProps {
+    enabled?: boolean;
+}
+
+export const MagneticCursor = ({ enabled = MAGNETIC_CURSOR_ENABLED }: MagneticCursorProps) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isTextHovered, setIsTextHovered] = useState(false);
     const [cursorText, setCursorText] = useState("");
@@ -14,6 +21,27 @@ export const MagneticCursor = () => {
     const cursorY = useSpring(mouseY, springConfig);
 
     useEffect(() => {
+        // Don't set up listeners if disabled
+        if (!enabled) {
+            document.body.classList.remove("magnetic-cursor-active");
+            document.body.style.cursor = "auto";
+            return;
+        }
+
+        // Add class to hide native cursor when magnetic cursor is active
+        const mediaQuery = window.matchMedia("(min-width: 1024px)");
+
+        const updateBodyClass = () => {
+            if (mediaQuery.matches && enabled) {
+                document.body.classList.add("magnetic-cursor-active");
+            } else {
+                document.body.classList.remove("magnetic-cursor-active");
+            }
+        };
+
+        updateBodyClass();
+        mediaQuery.addEventListener("change", updateBodyClass);
+
         const moveCursor = (e: MouseEvent) => {
             mouseX.set(e.clientX);
             mouseY.set(e.clientY);
@@ -56,30 +84,16 @@ export const MagneticCursor = () => {
         window.addEventListener("mousemove", moveCursor);
         window.addEventListener("mouseover", handleMouseOver);
 
-        // Hide default cursor only on large screens (matching lg:flex)
-        const mediaQuery = window.matchMedia("(min-width: 1024px)");
-
-        const handleCursorVisibility = () => {
-            if (mediaQuery.matches) {
-                document.body.style.cursor = "none";
-            } else {
-                document.body.style.cursor = "auto";
-            }
-        };
-
-        // Initial check
-        handleCursorVisibility();
-
-        // Listen for resize/breakpoint changes
-        mediaQuery.addEventListener("change", handleCursorVisibility);
-
         return () => {
             window.removeEventListener("mousemove", moveCursor);
             window.removeEventListener("mouseover", handleMouseOver);
-            mediaQuery.removeEventListener("change", handleCursorVisibility);
-            document.body.style.cursor = "auto";
+            mediaQuery.removeEventListener("change", updateBodyClass);
+            document.body.classList.remove("magnetic-cursor-active");
         };
-    }, [mouseX, mouseY]);
+    }, [mouseX, mouseY, enabled]);
+
+    // Don't render if disabled
+    if (!enabled) return null;
 
     return (
         <motion.div

@@ -24,13 +24,13 @@ export default function Auth() {
             <MagneticCursor />
             <motion.div
                 layout
-                className="w-full max-w-6xl min-h-[600px] md:h-[700px] rounded-[2.5rem] shadow-2xl overflow-hidden relative p-[3px] animate-rainbow bg-[length:200%_auto] z-10"
+                className="w-full max-w-6xl min-h-[500px] md:min-h-[600px] lg:h-[700px] rounded-2xl md:rounded-[2.5rem] shadow-2xl overflow-hidden relative p-[2px] md:p-[3px] animate-rainbow bg-[length:200%_auto] z-10"
                 style={{ backgroundImage: 'linear-gradient(to right, #ec4899, #8b5cf6, #06b6d4, #ec4899)' }}
             >
-                <div className="w-full h-full bg-card rounded-[2.3rem] flex overflow-hidden relative">
+                <div className="w-full h-full bg-card rounded-xl md:rounded-[2.3rem] flex flex-col md:flex-row overflow-hidden relative">
 
                     {/* Left Side - Form */}
-                    <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center relative z-10 bg-card">
+                    <div className="w-full md:w-1/2 p-6 md:p-12 lg:p-16 flex flex-col justify-center relative z-10 bg-card">
                         <motion.div layout className="mb-8">
                             <AnimatePresence mode="wait">
                                 <motion.div
