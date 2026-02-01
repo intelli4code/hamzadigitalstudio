@@ -9,7 +9,7 @@ export const MagneticCursor = () => {
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
 
-    const springConfig = { damping: 40, stiffness: 300 };
+    const springConfig = { damping: 35, stiffness: 400 };
     const cursorX = useSpring(mouseX, springConfig);
     const cursorY = useSpring(mouseY, springConfig);
 
@@ -87,8 +87,12 @@ export const MagneticCursor = () => {
             animate={{
                 width: isHovered ? 80 : isTextHovered ? 4 : 16,
                 height: isHovered ? 80 : isTextHovered ? 32 : 16,
-                backgroundColor: isHovered ? "hsl(var(--primary-brand))" : isTextHovered ? "hsl(var(--primary-brand))" : "#ffffff",
-                radius: isTextHovered ? 4 : "50%" // Smoothly transition radius if framer-motion supports it, otherwise generic rounded-full handles it
+                background: isHovered
+                    ? "linear-gradient(135deg, hsl(var(--primary-brand)), hsl(var(--accent)))"
+                    : isTextHovered
+                        ? "hsl(var(--primary-brand))"
+                        : "#ffffff",
+                radius: isTextHovered ? 4 : "50%"
             }}
             transition={{ type: "spring", damping: 25, stiffness: 400 }}
         >

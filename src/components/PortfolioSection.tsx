@@ -54,18 +54,11 @@ const PortfolioSection = () => {
     });
 
     const x = useTransform(scrollYProgress, [0, 1], ["1%", "-75%"]);
-    const smoothX = useSpring(x, { damping: 25, stiffness: 80 });
+    const smoothX = useSpring(x, { damping: 30, stiffness: 60 });
 
-    const [activeColor, setActiveColor] = useState<string>("");
 
     return (
         <section ref={targetRef} className="relative h-[300vh] bg-background">
-            {/* Dynamic Background Overlay */}
-            <motion.div
-                className="fixed inset-0 z-0 pointer-events-none opacity-20"
-                animate={{ backgroundColor: activeColor }}
-                transition={{ duration: 0.5 }}
-            />
 
             <div className="sticky top-0 flex h-screen items-center overflow-hidden">
                 {/* Horizontal Scroll Track */}
@@ -94,8 +87,6 @@ const PortfolioSection = () => {
                             {/* Video/Visual Side (60%) */}
                             <div
                                 className="relative w-full md:w-[60%] h-[50%] md:h-full bg-black overflow-hidden group-hover:cursor-none"
-                                onMouseEnter={() => setActiveColor(project.color)}
-                                onMouseLeave={() => setActiveColor("")}
                             >
                                 {/* Cinematic Letterbox Bars */}
                                 <div className="absolute top-0 left-0 right-0 h-10 md:h-16 bg-black z-10 opacity-80" />

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Cloud, Bell } from "lucide-react";
+import { Cloud, Bell, Lock, FileText, Check } from "lucide-react";
 import mobileAppMockup from "@/assets/mobile-app-mockup.jpg";
 import { useTheme } from "@/contexts/ThemeContext";
 import { BlurReveal } from "@/components/ui/blur-reveal";
@@ -43,24 +43,55 @@ const BentoSection = () => {
 
         {/* Bento Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          {/* Mobile App Showcase */}
+          {/* Secure File Transfer */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6 }}
-            className="relative row-span-2"
+            className="row-span-2 bg-card rounded-3xl p-5 md:p-6 lg:p-8 flex flex-col"
           >
-            <div className="relative h-full min-h-[400px] md:min-h-[500px] rounded-3xl overflow-hidden bg-gradient-to-br from-primary/20 to-primary/5">
-              <img
-                src={theme === 'dark' ? "/mobile-app-dark.png" : mobileAppMockup}
-                alt="Mobile app preview"
-                className="absolute inset-0 w-full h-full object-cover object-center"
-              />
+            <div className="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-purple-500 flex items-center justify-center mb-4 md:mb-6">
+              <Lock className="w-4 h-4 md:w-5 md:h-5 text-white" />
+            </div>
+
+            <BlurReveal
+              as="h3"
+              delay={0.1}
+              className="font-display text-xl md:text-2xl font-medium text-foreground mb-2 md:mb-3"
+            >
+              Secure File Transfer
+            </BlurReveal>
+            <Typewriter
+              text="End-to-end encrypted file sharing for client assets. We prioritize security and data privacy in every project we deliver."
+              delay={0.3}
+              speed={30}
+              className="text-sm md:text-base text-muted-foreground mb-8"
+            />
+
+            {/* Visual representation of file transfer */}
+            <div className="mt-auto bg-secondary/50 rounded-2xl p-4 border border-border/50">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center">
+                    <FileText className="w-4 h-4 text-blue-500" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-foreground">Project_Brief.pdf</p>
+                    <p className="text-xs text-muted-foreground">2.4 MB • Encrypted</p>
+                  </div>
+                </div>
+                <div className="w-5 h-5 rounded-full bg-success/20 flex items-center justify-center">
+                  <Check className="w-3 h-3 text-success" />
+                </div>
+              </div>
+              <div className="h-1.5 w-full bg-border rounded-full overflow-hidden">
+                <div className="h-full w-full bg-success rounded-full" />
+              </div>
             </div>
           </motion.div>
 
-          {/* Branded Client Spaces */}
+          {/* Realtime Updates */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -76,10 +107,10 @@ const BentoSection = () => {
               delay={0.1}
               className="font-display text-xl md:text-2xl font-medium text-foreground mb-2 md:mb-3"
             >
-              Responsive Design{" "}
+              Realtime Updates
             </BlurReveal>
             <Typewriter
-              text="Beautiful, mobile-first designs that work perfectly on every screen size. Your site will look stunning on phones, tablets, and desktops"
+              text="Instant data synchronization across all devices using WebSockets. Keep your users engaged with live content updates."
               delay={0.3}
               speed={30}
               className="text-sm md:text-base text-muted-foreground"
@@ -126,10 +157,10 @@ const BentoSection = () => {
               delay={0.1}
               className="font-display text-xl md:text-2xl font-medium text-foreground mb-2 md:mb-3"
             >
-              Performance Optimization
+              Smart Notifications
             </BlurReveal>
             <Typewriter
-              text="Lightning-fast websites optimized for speed and SEO. Better performance means better rankings and higher conversion rates"
+              text="Intelligent alert systems that keep users informed without being intrusive. Customizable channels and delivery methods."
               delay={0.3}
               speed={30}
               className="text-sm md:text-base text-muted-foreground"

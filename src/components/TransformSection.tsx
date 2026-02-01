@@ -251,7 +251,7 @@ function TransformSection() {
               className="group p-8 md:p-10 bg-card border border-border rounded-2xl md:rounded-3xl hover:border-primary/30 hover:shadow-lg transition-all duration-500"
             >
               <div className={`w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center mb-6 md:mb-8 transition-transform group-hover:scale-110 duration-500 ${item.color === 'primary' ? 'bg-primary/10 text-primary' :
-                  item.color === 'secondary' ? 'bg-secondary/10 text-secondary-foreground' : 'bg-accent/10 text-accent-foreground'
+                item.color === 'secondary' ? 'bg-secondary/10 text-secondary-foreground' : 'bg-accent/10 text-accent-foreground'
                 }`}>
                 <item.icon className="w-7 h-7 md:w-8 md:h-8" />
               </div>

@@ -28,7 +28,7 @@ const Index = () => {
         <FeaturesSection />
         <BentoSection />
         <ProcessSection />
-        <StickyCardsSection />
+        {/* <StickyCardsSection /> */}
         <TransformSection />
         <StepsSection />
         <TestimonialsSection />

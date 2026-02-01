@@ -45,10 +45,10 @@ const Header = () => {
             <a href="#login" className="hidden sm:block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
               Login
             </a>
-            <Button variant="hero" size="default" className="group hidden sm:flex">
+            <Button variant="default" size="default" className="group hidden sm:flex bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6">
               Get early access
-              <span className="flex items-center justify-center w-6 h-6 bg-primary rounded-md ml-1 group-hover:bg-orange-light transition-colors">
-                <ArrowUpRight className="w-3.5 h-3.5 text-primary-foreground" />
+              <span className="flex items-center justify-center w-6 h-6 bg-white/20 rounded-full ml-2 group-hover:scale-110 transition-transform">
+                <ArrowUpRight className="w-3.5 h-3.5 text-current" />
               </span>
             </Button>
 
